@@ -1,6 +1,13 @@
+const HtmlWebpackPlugin =  require( 'html-webpack-plugin' );
+const {resolve} = require('path');
+//
+const distDir = resolve(__dirname,'dist');
+
 module.exports = {
-    entry: './src/app.js',
+    entry: "./src/app.js",
     output: {
-        filename: './dist/app.bundle.js'
-    }
+        path: distDir,
+        filename: 'app.bundle.js'
+    },
+    plugins: [ new HtmlWebpackPlugin() ]
 }
