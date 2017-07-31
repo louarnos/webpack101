@@ -23,9 +23,17 @@ module.exports = {
 			}
 		]
 	},
+	devServer: {
+		contentBase: `${distDir}`,
+		compress: true,
+		port: 9000,
+//		stats: "errors-only",
+		open: true,
+		openPage: '',
+	},
 	plugins: [
 	  new HtmlWebpackPlugin({
-		title: 'Poopy Title',
+		title: 'Super Cool Title Bruh.',
 		minify: { collapseWhitespace: true },
 		hash: true,
 		template: `${srcDir}/index.ejs`, // Load a custom template (ejs by default see the FAQ for details)
