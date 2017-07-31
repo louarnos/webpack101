@@ -1,4 +1,6 @@
 const HtmlWebpackPlugin =  require( 'html-webpack-plugin' );
+const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+
 const {resolve} = require('path');
 const distDir = resolve(__dirname,'dist');
 const srcDir = resolve(__dirname,'src');
@@ -11,7 +13,14 @@ module.exports = {
     },
 	module: {
 		rules: [
-			{ test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] }
+			{ 
+				test: /\.scss$/, 
+				use: ExtractTextPlugin.extract({
+						fallback: 'style-loader', 
+						use: ['css-loader', 'sass-loader'],
+						publicPath: `${distDir}`,
+				}), 
+			}
 		]
 	},
 	plugins: [
@@ -20,6 +29,11 @@ module.exports = {
 		minify: { collapseWhitespace: true },
 		hash: true,
 		template: `${srcDir}/index.ejs`, // Load a custom template (ejs by default see the FAQ for details)
-	  })
+	  }),
+	  new ExtractTextPlugin({
+		  filename: 'app.css',
+		  disable: false,
+		  allChunks: true
+	  }),
 	]
 }
