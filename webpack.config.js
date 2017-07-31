@@ -9,5 +9,17 @@ module.exports = {
         path: `${distDir}`,
         filename: 'app.bundle.js'
     },
-    plugins: [ new HtmlWebpackPlugin() ]
+	module: {
+		rules: [
+			{ test: /\.css$/, loaders: 'style-loader!css-loader' }
+		]
+	},
+	plugins: [
+	  new HtmlWebpackPlugin({
+		title: 'Poopy Title',
+		minify: { collapseWhitespace: true },
+		hash: true,
+		template: `${srcDir}/index.ejs`, // Load a custom template (ejs by default see the FAQ for details)
+	  })
+	]
 }
